@@ -2,11 +2,8 @@ import os, uuid, logging
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 
-def upload_to_blob(
-    data, # as string?
-    container_name, 
-    blob_name
-):
+
+def upload_to_blob(data, container_name, blob_name):  # as string?
 
     account_name = os.environ.get("BLOB_STORAGE_RESOURCE_NAME")
     logging.info(f"upload_to_blob account_name={account_name}")
@@ -19,7 +16,8 @@ def upload_to_blob(
 
     blob_service_client = BlobServiceClient(account_url, credential=default_credential)
 
-    blob_client = blob_service_client.get_container_client(container_name).upload_blob(unique_file_name, data)
+    blob_client = blob_service_client.get_container_client(container_name).upload_blob(
+        unique_file_name, data
+    )
 
     return blob_client.url
-

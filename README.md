@@ -1,6 +1,6 @@
-# Project Name
+# Azure Functions ETL application with Python
 
-(short, 1-3 sentenced, description of the project)
+The server application demonstrates how to use Azure Functions as part of an ETL (extract-transform-load) pipe line. 
 
 ## Features
 
