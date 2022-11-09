@@ -1,0 +1,1 @@
+az group create --name 'rg-cloudetl-demo' --location <REGION>
