@@ -9,15 +9,14 @@ def upload_to_blob(azure_credential, data, container_name, blob_name):  # as str
 
     account_name = os.environ.get("BLOB_STORAGE_RESOURCE_NAME")
     logging.info("upload_to_blob account_name=%s", account_name)
-    unique_id = uuid.uuid4()
-    unique_file_name = f"{unique_id}_{blob_name}"
+
     account_url = f"https://{account_name}.blob.core.windows.net"
     logging.info("account_url=%s", account_url)
 
     blob_service_client = BlobServiceClient(account_url, credential=azure_credential)
 
     blob_client = blob_service_client.get_container_client(container_name).upload_blob(
-        unique_file_name, data
+        blob_name, data
     )
 
     return blob_client.url

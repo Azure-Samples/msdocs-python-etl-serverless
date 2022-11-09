@@ -39,7 +39,7 @@ def main(myblob: func.InputStream):
         new_json_str = str(json.dumps(new_data_dictionary))
 
         file_name = myblob.name.split("/")[1]
-        new_file_name = f"processed-{file_name}"
+        new_file_name = f"processed_{file_name}"
 
         azure_default_credential = get_azure_default_credential()
 
