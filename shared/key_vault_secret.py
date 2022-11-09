@@ -2,6 +2,7 @@ import logging
 
 from azure.keyvault.secrets import SecretClient
 
+
 def get_key_vault_secret(azure_credential, key_vault_name, secret_name):
 
     key_vault_uri = f"https://{key_vault_name}.vault.azure.net"

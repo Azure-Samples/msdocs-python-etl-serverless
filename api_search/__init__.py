@@ -4,11 +4,15 @@ import os
 
 import azure.functions as func
 
+from shared.azure_credential import (
+    get_azure_default_credential,
+    get_azure_key_credential,
+)
 from shared.bing_search import get_news
 from shared.blob_storage import upload_to_blob
 from shared.hash import get_random_hash
 from shared.key_vault_secret import get_key_vault_secret
-from shared.azure_credential import get_azure_key_credential, get_azure_default_credential
+
 
 # http://localhost:7071/api/etl1
 def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -31,9 +35,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     hash1 = get_random_hash()
 
     # Clean up file name
-    filename = f"search_results_{search_term}_{hash1}.json".replace(" ", "_").replace(
-        "-", "_"
-    )
+    filename = f"search_results_{search_term}_{hash1}.json".replace(" ", "_").replace("-", "_")
 
     news_search_results = get_news(azure_key_credential, bing_news_search_url, search_term, count)
 
@@ -45,7 +47,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
         jsonItems = json.dumps([news.as_dict() for news in news_search_results.value])
 
-    blob_url = upload_to_blob(azure_default_credential, jsonItems, blob_storage_container_name, filename)
+    blob_url = upload_to_blob(
+        azure_default_credential, jsonItems, blob_storage_container_name, filename
+    )
     logging.info("news uploaded: %s", blob_url)
 
     return filename

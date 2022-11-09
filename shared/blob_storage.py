@@ -4,6 +4,7 @@ import uuid
 
 from azure.storage.blob import BlobServiceClient
 
+
 def upload_to_blob(azure_credential, data, container_name, blob_name):  # as string?
 
     account_name = os.environ.get("BLOB_STORAGE_RESOURCE_NAME")

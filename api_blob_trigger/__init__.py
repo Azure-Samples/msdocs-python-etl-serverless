@@ -3,9 +3,10 @@ import logging
 
 import azure.functions as func
 
+from shared.azure_credential import get_azure_default_credential
 from shared.data_lake import upload_to_data_lake
 from shared.transform import clean_documents
-from shared.azure_credential import get_azure_default_credential
+
 
 def main(myblob: func.InputStream):
 
@@ -33,9 +34,7 @@ def main(myblob: func.InputStream):
         logging.info(data)
 
         new_data_dictionary = clean_documents(data)
-        logging.info(
-            "Successfully processed Bing News Search results for '%s'.", myblob.name
-        )
+        logging.info("Successfully processed Bing News Search results for '%s'.", myblob.name)
 
         new_json_str = str(json.dumps(new_data_dictionary))
 

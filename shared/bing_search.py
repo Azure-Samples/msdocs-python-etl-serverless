@@ -9,9 +9,7 @@ def get_news(
     market="en-us",
 ):
 
-    client = NewsSearchClient(
-        endpoint=bing_endpoint, credential=azure_credential
-    )
+    client = NewsSearchClient(endpoint=bing_endpoint, credential=azure_credential)
 
     news_result = client.news.search(query=search_term, market=market, count=count)
 

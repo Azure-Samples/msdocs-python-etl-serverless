@@ -28,9 +28,11 @@ def clean_metadata(jsonitem):
 
     return article_url, article_title, article_descr, article_text
 
+
 # strip HTML tags from a string.
 def remove_html_tags(html_text):
     return html.escape(re.compile(r"<[^>]+>").sub("", str(html_text)))
+
 
 # get all text of a news article, with the assumption that most of the
 # article text will use the <p> (paragraph) HTML tag.
