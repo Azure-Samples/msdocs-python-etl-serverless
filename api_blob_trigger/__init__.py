@@ -10,24 +10,20 @@ from shared.transform import clean_documents
 
 def main(myblob: func.InputStream):
 
-    logging.info(
-        f"Python blob trigger function processed blob \n"
-        f"Name: {myblob.name}\n"
-        f"Blob Size: {myblob.length} bytes"
-    )
+    logging.info("Python blob trigger function processed blob \nName: %s \nBlob Size: %s bytes", myblob.name, myblob.length)
 
-    logging.info("Start processing Bing News Search results for '%s'.", {myblob.name})
+    logging.info("Start processing Bing News Search results for '%s'.", myblob.name)
 
     # read the blob content as a string.
     search_results_blob_str = myblob.read()
 
-    # decode the string to Unicode, then replace single quotes with double quotes.
+    # decode the string to Unicode
     blob_json = search_results_blob_str.decode("utf-8")
 
     logging.info("Successfully read the blob content as a string.")
     logging.info(blob_json)
 
-    # parse a valid JSON string and convert it into a Python Dictionary
+    # parse a valid JSON string and convert it into a Python dict
     try:
         data = json.loads(blob_json)
         logging.info("Successfully converted to python list.")
@@ -36,7 +32,7 @@ def main(myblob: func.InputStream):
         new_data_dictionary = clean_documents(data)
         logging.info("Successfully processed Bing News Search results for '%s'.", myblob.name)
 
-        new_json_str = str(json.dumps(new_data_dictionary))
+        new_json_str = json.dumps(new_data_dictionary)
 
         file_name = myblob.name.split("/")[1]
         new_file_name = f"processed_{file_name}"
@@ -48,5 +44,5 @@ def main(myblob: func.InputStream):
             "Successfully uploaded to data lake, old: %s, new: %s", myblob.name, new_file_name
         )
 
-    except ValueError as e:
-        logging.info("Error converting %s to python dictionary: %s", myblob.name, e)
+    except ValueError as err:
+        logging.info("Error converting %s to python dictionary: %s", myblob.name, err)

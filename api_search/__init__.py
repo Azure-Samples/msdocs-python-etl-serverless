@@ -19,8 +19,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     logging.info("/api/news")
 
-    search_term = req.params.get("search_term") or "Quantum Computing"
-    count = req.params.get("count") or 10
+    search_term = req.params.get("search_term", "Quantum Computing")
+    count = req.params.get("count", 10)
 
     key_vault_resource_name = os.environ["KEY_VAULT_RESOURCE_NAME"]
     secret_name = os.environ["KEY_VAULT_SECRET_NAME"]
@@ -41,14 +41,13 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     # Convert the result to JSON and return it
     if news_search_results.value:
-
         news_item_count = len(news_search_results.value)
-        logging.info("news item count: %s", str(news_item_count))
+        logging.info("news item count: %d", news_item_count)
+        json_items = json.dumps([news.as_dict() for news in news_search_results.value])
 
-        jsonItems = json.dumps([news.as_dict() for news in news_search_results.value])
-
+    # TODO: Why upload if there are no items?
     blob_url = upload_to_blob(
-        azure_default_credential, jsonItems, blob_storage_container_name, filename
+        azure_default_credential, json_items, blob_storage_container_name, filename
     )
     logging.info("news uploaded: %s", blob_url)
 
