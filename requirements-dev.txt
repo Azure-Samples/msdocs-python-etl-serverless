@@ -1,0 +1,8 @@
+-r requirements.txt
+black
+isort
+flake8
+pyupgrade
+pytest
+coverage
+pytest-cov
