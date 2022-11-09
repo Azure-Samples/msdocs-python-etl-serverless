@@ -26,7 +26,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     secret_name = os.environ["KEY_VAULT_SECRET_NAME"]
 
     azure_default_credential = get_azure_default_credential()
-    bing_key = get_key_vault_secret(azure_default_credential, key_vault_resource_name, secret_name)
+    bing_key = get_key_vault_secret(
+        azure_default_credential, key_vault_resource_name, secret_name
+    )
     azure_key_credential = get_azure_key_credential(bing_key)
 
     blob_storage_container_name = os.environ["BLOB_STORAGE_CONTAINER_NAME"]
@@ -35,9 +37,13 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     hash1 = get_random_hash()
 
     # Clean up file name
-    filename = f"search_results_{search_term}_{hash1}.json".replace(" ", "_").replace("-", "_")
+    filename = f"search_results_{search_term}_{hash1}.json".replace(" ", "_").replace(
+        "-", "_"
+    )
 
-    news_search_results = get_news(azure_key_credential, bing_news_search_url, search_term, count)
+    news_search_results = get_news(
+        azure_key_credential, bing_news_search_url, search_term, count
+    )
 
     # Convert the result to JSON and return it
     if news_search_results.value:

@@ -10,7 +10,11 @@ from shared.transform import clean_documents
 
 def main(myblob: func.InputStream):
 
-    logging.info("Python blob trigger function processed blob \nName: %s \nBlob Size: %s bytes", myblob.name, myblob.length)
+    logging.info(
+        "Python blob trigger function processed blob \nName: %s \nBlob Size: %s bytes",
+        myblob.name,
+        myblob.length,
+    )
 
     logging.info("Start processing Bing News Search results for '%s'.", myblob.name)
 
@@ -30,7 +34,9 @@ def main(myblob: func.InputStream):
         logging.info(data)
 
         new_data_dictionary = clean_documents(data)
-        logging.info("Successfully processed Bing News Search results for '%s'.", myblob.name)
+        logging.info(
+            "Successfully processed Bing News Search results for '%s'.", myblob.name
+        )
 
         new_json_str = json.dumps(new_data_dictionary)
 
@@ -41,7 +47,9 @@ def main(myblob: func.InputStream):
 
         upload_to_data_lake(azure_default_credential, new_file_name, new_json_str)
         logging.info(
-            "Successfully uploaded to data lake, old: %s, new: %s", myblob.name, new_file_name
+            "Successfully uploaded to data lake, old: %s, new: %s",
+            myblob.name,
+            new_file_name,
         )
 
     except ValueError as err:
