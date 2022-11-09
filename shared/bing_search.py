@@ -3,8 +3,8 @@ import logging
 import os
 
 import azure.functions as func
-from news_search_client import NewsSearchClient
 from azure.core.credentials import AzureKeyCredential
+from news_search_client import NewsSearchClient
 
 
 def get_news(

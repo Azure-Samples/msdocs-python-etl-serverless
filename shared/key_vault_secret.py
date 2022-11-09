@@ -1,4 +1,5 @@
 import logging
+
 from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
 

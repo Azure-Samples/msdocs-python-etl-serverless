@@ -1,7 +1,11 @@
-import os, uuid, sys, logging
+import logging
+import os
+import sys
+import uuid
+
+from azure.core._match_conditions import MatchConditions
 from azure.identity import DefaultAzureCredential
 from azure.storage.filedatalake import DataLakeServiceClient
-from azure.core._match_conditions import MatchConditions
 from azure.storage.filedatalake._models import ContentSettings
 
 # RBAC role - Storage Blob Data Owner

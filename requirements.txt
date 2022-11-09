@@ -6,6 +6,6 @@ azure.functions
 microsoft-bing-newssearch
 azure.core
 azure.storage.blob
-azure.storage.filedatalake
+azure.storage.file.datalake
 azure.keyvault.secrets
 beautifulsoup4

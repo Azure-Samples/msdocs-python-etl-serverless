@@ -1,4 +1,5 @@
-import random, string
+import random
+import string
 
 
 def get_random_hash():

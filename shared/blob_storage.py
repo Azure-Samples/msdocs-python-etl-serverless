@@ -1,6 +1,9 @@
-import os, uuid, logging
+import logging
+import os
+import uuid
+
 from azure.identity import DefaultAzureCredential
-from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+from azure.storage.blob import BlobClient, BlobServiceClient, ContainerClient
 
 
 def upload_to_blob(data, container_name, blob_name):  # as string?

@@ -1,12 +1,13 @@
-import logging
 import html
+import json
+import logging
 import os
 import re
-import json
+
 import requests
-from bs4 import BeautifulSoup
 from azure.identity import DefaultAzureCredential
-from azure.storage.filedatalake import DataLakeServiceClient, DataLakeFileClient
+from azure.storage.filedatalake import DataLakeFileClient, DataLakeServiceClient
+from bs4 import BeautifulSoup
 
 
 def get_content_from_url(url):

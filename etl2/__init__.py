@@ -1,17 +1,17 @@
-import logging
 import html
+import json
+import logging
 import os
 import re
-import json
-import requests
-from bs4 import BeautifulSoup
-from azure.identity import DefaultAzureCredential
-from azure.storage.filedatalake import DataLakeServiceClient, DataLakeFileClient
-
-from shared.transform import clean_documents
-from shared.data_lake import upload_to_data_lake
 
 import azure.functions as func
+import requests
+from azure.identity import DefaultAzureCredential
+from azure.storage.filedatalake import DataLakeFileClient, DataLakeServiceClient
+from bs4 import BeautifulSoup
+
+from shared.data_lake import upload_to_data_lake
+from shared.transform import clean_documents
 
 
 def main(myblob: func.InputStream):

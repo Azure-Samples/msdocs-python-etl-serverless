@@ -3,12 +3,13 @@ import logging
 import os
 
 import azure.functions as func
+from azure.identity import DefaultAzureCredential
 
 from shared.bing_search import get_news
-from azure.identity import DefaultAzureCredential
-from shared.key_vault_secret import get_key_vault_secret
-from shared.hash import get_random_hash
 from shared.blob_storage import upload_to_blob
+from shared.hash import get_random_hash
+from shared.key_vault_secret import get_key_vault_secret
+
 
 # http://localhost:7071/api/etl1
 def main(req: func.HttpRequest) -> func.HttpResponse:
