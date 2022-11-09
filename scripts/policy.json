@@ -1,0 +1,26 @@
+{
+    "rules": [
+      {
+        "enabled": true,
+        "name": "move-to-cool",
+        "type": "Lifecycle",
+        "definition": {
+          "actions": {
+            "baseBlob": {
+              "tierToCool": {
+                "daysAfterModificationGreaterThan": 30
+              }
+            }
+          },
+          "filters": {
+            "blobTypes": [
+              "blockBlob"
+            ],
+            "prefixMatch": [
+              "smsdocs-python-cloud-etl-news-source/search_results"
+            ]
+          }
+        }
+      }
+    ]
+  }
