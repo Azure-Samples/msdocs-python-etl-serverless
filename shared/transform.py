@@ -38,7 +38,7 @@ def remove_html_tags(html_text):
 # article text will use the <p> (paragraph) HTML tag.
 def get_html_text(page_html):
 
-    logging.info(f"get_html_text begin: %s", page_html)
+    logging.info("get_html_text begin: %s", page_html)
 
     soup = BeautifulSoup(page_html, "html.parser")
     text = soup.find_all("p", text=True)
