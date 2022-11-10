@@ -1,6 +1,5 @@
 import logging
 import os
-import uuid
 
 from azure.storage.blob import BlobServiceClient
 

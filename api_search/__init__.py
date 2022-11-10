@@ -1,3 +1,4 @@
+# ./api_search/__init__.py
 import json
 import logging
 import os
@@ -14,13 +15,13 @@ from shared.hash import get_random_hash
 from shared.key_vault_secret import get_key_vault_secret
 
 
-# http://localhost:7071/api/etl1
+# http://localhost:7071/api/search
 def main(req: func.HttpRequest) -> func.HttpResponse:
 
-    logging.info("/api/news")
+    logging.info("/api/search")
 
-    search_term = req.params.get("search_term") or "Quantum Computing"
-    count = req.params.get("count") or 10
+    search_term = req.params.get("search_term", "Quantum Computing")
+    count = req.params.get("count", 10)
 
     key_vault_resource_name = os.environ["KEY_VAULT_RESOURCE_NAME"]
     secret_name = os.environ["KEY_VAULT_SECRET_NAME"]
@@ -39,17 +40,15 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     news_search_results = get_news(azure_key_credential, bing_news_search_url, search_term, count)
 
-    # Convert the result to JSON and return it
+    # Convert the result to JSON and save it to Azure Blob Storage
     if news_search_results.value:
-
         news_item_count = len(news_search_results.value)
-        logging.info("news item count: %s", str(news_item_count))
+        logging.info("news item count: %d", news_item_count)
+        json_items = json.dumps([news.as_dict() for news in news_search_results.value])
 
-        jsonItems = json.dumps([news.as_dict() for news in news_search_results.value])
-
-    blob_url = upload_to_blob(
-        azure_default_credential, jsonItems, blob_storage_container_name, filename
-    )
-    logging.info("news uploaded: %s", blob_url)
+        blob_url = upload_to_blob(
+            azure_default_credential, json_items, blob_storage_container_name, filename
+        )
+        logging.info("news uploaded: %s", blob_url)
 
     return filename
