@@ -1,3 +1,4 @@
+# ./api_search/__init__.py
 import json
 import logging
 import os
@@ -39,7 +40,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     news_search_results = get_news(azure_key_credential, bing_news_search_url, search_term, count)
 
-    # Convert the result to JSON and return it
+    # Convert the result to JSON and save it to Azure Blob Storage
     if news_search_results.value:
         news_item_count = len(news_search_results.value)
         logging.info("news item count: %d", news_item_count)
