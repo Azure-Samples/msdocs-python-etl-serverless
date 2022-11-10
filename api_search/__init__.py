@@ -14,10 +14,10 @@ from shared.hash import get_random_hash
 from shared.key_vault_secret import get_key_vault_secret
 
 
-# http://localhost:7071/api/etl1
+# http://localhost:7071/api/search
 def main(req: func.HttpRequest) -> func.HttpResponse:
 
-    logging.info("/api/news")
+    logging.info("/api/search")
 
     search_term = req.params.get("search_term", "Quantum Computing")
     count = req.params.get("count", 10)
@@ -45,10 +45,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         logging.info("news item count: %d", news_item_count)
         json_items = json.dumps([news.as_dict() for news in news_search_results.value])
 
-    # TODO: Why upload if there are no items?
-    blob_url = upload_to_blob(
-        azure_default_credential, json_items, blob_storage_container_name, filename
-    )
-    logging.info("news uploaded: %s", blob_url)
+        blob_url = upload_to_blob(
+            azure_default_credential, json_items, blob_storage_container_name, filename
+        )
+        logging.info("news uploaded: %s", blob_url)
 
     return filename
