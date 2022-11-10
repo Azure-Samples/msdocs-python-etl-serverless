@@ -149,3 +149,4 @@ This project uses the following:
 * Extraneous names: The service principal name and the Bing Search service name and kind aren't necessary in the `local.settings.json` for this sample application to work. These values are helpful when you need to:
     * Assign the service principal in the IAM of a resource
     * Verify the correct Bing Search service was created
+* Logging: logging is disabled in the `./host.json` file with the `logging.logLevel.default` property set to error. To see verbose logs, change the value to `Information`.

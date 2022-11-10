@@ -1,3 +1,4 @@
+# ./shared/hash.py
 import random
 import string
 
