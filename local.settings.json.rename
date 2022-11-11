@@ -9,7 +9,7 @@
     "BLOB_STORAGE_CONNECTION_STRING": "",
 
     "KEY_VAULT_RESOURCE_NAME": "",
-    "KEY_VAULT_SECRET_NAME": "bing-search-sub-key1",
+    "KEY_VAULT_SECRET_NAME": "bing-search-resource-key1",
 
     "DATALAKE_GEN_2_RESOURCE_NAME": "",
     "DATALAKE_GEN_2_CONTAINER_NAME": "",
