@@ -64,17 +64,21 @@ This project uses the following:
 ### Prerequisites
 
 - Python 3.9 
-- Node.js LTS and [azure functions core tools 4](https://www.npmjs.com/package/azure-functions-core-tools)
+- Node.js LTS
+    - [Azure Functions core tools 4](https://www.npmjs.com/package/azure-functions-core-tools)
+    - [Azurite](https://www.npmjs.com/package/azurite)
 - Azure resources
-    - [Azure service principal](./scripts/create-service-principal.sh) for local development
-        - Save service principal information to local.settings.json
-
-            ```
-            "AZURE_CLIENT_ID":"",
-            "AZURE_TENANT_ID":"",
-            "AZURE_CLIENT_SECRET":"",
-            "AZURE_SERVICE_PRINCIPAL_NAME":""         
-            ```
+    - Local Identity (either User Identity or Service Principal)
+        - User identity (your Azure identity), signed in with Azure CLI
+        - [Azure service principal](./scripts/create-service-principal.sh) for local development
+            - Save service principal information to local.settings.json
+    
+                ```
+                "AZURE_CLIENT_ID":"",
+                "AZURE_TENANT_ID":"",
+                "AZURE_CLIENT_SECRET":"",
+                "AZURE_SERVICE_PRINCIPAL_NAME":""         
+                ```
     - Key Vault
         - Save Key Vault information to local.settings.json
 
@@ -105,10 +109,10 @@ This project uses the following:
             ```
             "BLOB_STORAGE_RESOURCE_NAME": "",
             "BLOB_STORAGE_CONTAINER_NAME": "",
-            "BLOB_STORAGE_CONNECTION_STRING": "",
+            "AzureWebJobsStorage": "",
             ```
 
-            The **BLOB_STORAGE_CONNECTION_STRING** is used by the Function Blob Trigger to access Blob Storage.
+            The **AzureWebJobsStorage** is used by the Function Blob Trigger to access Blob Storage.
 
     - Azure Data Lake
         - Set Data Lake resource values in local.settings.json
@@ -118,16 +122,23 @@ This project uses the following:
             "DATALAKE_GEN_2_CONTAINER_NAME": "",
             "DATALAKE_GEN_2_DIRECTORY_NAME": "",            
             ```
+
 ### Installation
 
-* Install Azure Functions core tools for local development
+1. Install Azure Functions core tools for local development
     ```
     npm i -g azure-functions-core-tools@4 --unsafe-perm true
     ```
-* Install Python packages
+
+2. Install Azurite for storage emulation
+    ```
+    npm install -g azurite
+    ```
+
+3. Install Python packages
 
     ```
-    pip -r requirements.txt
+    pip -r requirements-dev.txt
     ```
 
 ### Quickstart
@@ -136,6 +147,12 @@ This project uses the following:
 
     ```
     git clone https://github.com/Azure-Samples/msdocs-python-etl-serverless.git
+    ```
+
+2. Start local storage emulation
+
+    ```bash
+    azurite -s -l azurite -d azurite\debug.log
     ```
 
 2. Start function
