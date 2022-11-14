@@ -1,0 +1,23 @@
+{
+  "name": "msdocs-python-etl-serverless",
+  "version": "1.0.0",
+  "description": "--- page_type: sample languages: - python name: \"Azure Functions ETL application with Python\" description: \"The server application demonstrates how to use Azure Functions as part of an ETL (extract-transform-load) pipe line. Search Bing news, clean the results, and store in Azure Data Lake.\" products: - azure - azure-functions - azure-blob-storage - azure-data-lake - azure-data-lake-gen2 - azure-data-lake-storage - azure-key-vault - vs-code - bing-search-services ---",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diberry/msdocs-python-etl-serverless.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diberry/msdocs-python-etl-serverless/issues"
+  },
+  "homepage": "https://github.com/diberry/msdocs-python-etl-serverless#readme",
+  "devDependencies": {
+    "azurite": "^3.20.1"
+  }
+}
